@@ -1,4 +1,16 @@
-# RPackageTemplate
+# RUTrentoOpenData
+
+
+
 This is a first draf for an R package template. 
 
-This project will be "via-via" created updated and will be finished in the next R Trento Users' meeting, in December 2016.
+##Code Contributions
+
+###Coding Conventions
+ *  If you would like to contribute to this R package, pleas read the following <a href="http://adv-r.had.co.nz/Style.html">code style guidelines</a>
+
+
+###Checklist
+###Licensing of Contributions
+
+##Documentation Contributions
