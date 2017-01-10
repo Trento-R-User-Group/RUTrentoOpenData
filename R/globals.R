@@ -1,16 +1,7 @@
 # TODO: Add comment
 # 
 # Author: Trento R User Group
-###############################################################################
-#
-#  Ereditarietà degli argomenti
-#             (eg: Voglio aggiungere uno o più parametri su trentino(q) come rows, pack_sel, res_sel.
-#               Posso usare '...'? Come?)
-#
-#  CORREGGERE: Some functions do NOT return() anything, they just invoke another function. BAAAAAD
-#
-#
-###############################################################################
+
 
 #' 
 #' Main function / entry point

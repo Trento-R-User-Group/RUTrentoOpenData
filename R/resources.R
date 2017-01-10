@@ -9,13 +9,16 @@
 #' @return NOTHING [TBC]
 #' 
 #' 
-select_resource <- function(package, res_sel = NULL) {
-    if (is.null(res_sel)) {
+select_resource <- function(package, res_sel = 'manual') {
+    if (res_sel == 'manual') {
+        res_sel = menu_resources(package$resources[[1]])
+    } else {
         # TODO:
         # default_resource()
         # Se package appartiene a organizzazione conosciuta, possiamo impostare un res_sel di default (sovrascrivibile)
-        res_sel = resources_menu(package$resources[[1]])
+        print('default_resource() [TBI]')
     }
+
     resource <- package$resources[[1]][res_sel, ]
     download_resource(resource)
     # Should return a data.frame
