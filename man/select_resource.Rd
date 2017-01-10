@@ -4,7 +4,7 @@
 \alias{select_resource}
 \title{Handle the resource selection}
 \usage{
-select_resource(package, res_sel = NULL)
+select_resource(package, res_sel = "manual")
 }
 \arguments{
 \item{package}{A Package data.frame}

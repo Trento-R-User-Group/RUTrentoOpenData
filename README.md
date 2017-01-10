@@ -2,7 +2,7 @@
 
 
 
-This is a first draf for an R package template. 
+This is a first draft for an R package template. 
 
 ##Code Contributions
 

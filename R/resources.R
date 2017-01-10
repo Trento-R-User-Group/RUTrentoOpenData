@@ -1,3 +1,4 @@
+NULL
 #'
 #' Handle the resource selection
 #' 
@@ -6,6 +7,7 @@
 #' @param package A Package data.frame 
 #' @param res_sel Override Resource selection
 #' 
+#' @export
 #' @return NOTHING [TBC]
 #' 
 #' 
@@ -24,7 +26,7 @@ select_resource <- function(package, res_sel = 'manual') {
     # Should return a data.frame
 }
 
-
+NULL
 #'
 #' Handle the Resource download# Should return a data.frame
 #' 
@@ -32,6 +34,7 @@ select_resource <- function(package, res_sel = 'manual') {
 #' 
 #' @param resource A Resource data.frame
 #' 
+#' @export 
 #' @return Should be a data.frame with actual data in it
 #' 
 download_resource <- function(resource) {
@@ -48,12 +51,13 @@ download_resource <- function(resource) {
     return(res)
 }
 
-
+NULL
 #' 
 #' Resources Menu
 #'
 #' Interactive menu to download a Resource given a Package
 #' 
+#' @export
 #' @param resources A Package data.frame
 #'
 menu_resources <- function(resources = NULL) {

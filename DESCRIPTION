@@ -2,6 +2,7 @@ Package: RUTrentoOpenData
 Title: Explore Trentino's Open Data landscape
 Version: 0.0.0.9000
 Authors@R: person("Giacomo", "Gamba", email = "giackgamba@gmail.com", role = c("aut", "cre"))
+Maintainer@R: person("Giacomo", "Gamba", email = "giackgamba@gmail.com", role = c("aut", "cre"))
 Description: This package is intended to query and get data easily from
     TrentinoOpenData portal. The portal is a CKAN at dati.trentino.it.
 Depends:

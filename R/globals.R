@@ -1,7 +1,7 @@
 # TODO: Add comment
 # 
 # Author: Trento R User Group
-
+NULL
 
 #' 
 #' Main function / entry point
@@ -12,6 +12,8 @@
 #' @param rows Number of rows to be returned from the query, DEFAULT=100 (TODO: Possibily add a warning/message when max is reached)
 #' @param pack_sel Package selection. Custom parameter to override, force or set default package
 #' @param res_sel Resource selection. Custom parameter to override, force or set default resource
+#' 
+#' @export
 #' 
 #' @return A dataset if everything goes ok, otherwise...(TODO)
 #' 
@@ -27,7 +29,7 @@ trentino <- function(q, rows = 100, pack_sel = NULL, res_sel = NULL) {
     # Should return a data.frame
 }
 
-
+NULL
 #' 
 #' Search function
 #' 
@@ -35,6 +37,9 @@ trentino <- function(q, rows = 100, pack_sel = NULL, res_sel = NULL) {
 #' 
 #' @param q query
 #' @param rows Number of rows to be returned from the query, DEFAULT=100 (TODO: Possibily add a warning/message when max is reached)
+#' 
+#' 
+#' @export 
 #' 
 #' @return A data.frame as returned from ckanr::package_search
 #' 

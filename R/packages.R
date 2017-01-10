@@ -1,3 +1,4 @@
+NULL
 #'
 #' Packages Menu
 #'
@@ -7,6 +8,7 @@
 #' @param rows Number of rows to be returned in the menu, DEFAULT=100 (TODO: Possibily add a warning/message if rows is reached)
 #' @param sel Override Package selection
 #' 
+#' @export
 #' @return NOTHING [TBC]
 #'
 menu_packages <- function(q = NULL, rows = 100, sel = NULL ) {
