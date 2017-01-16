@@ -4,14 +4,16 @@
 \alias{menu_packages}
 \title{Packages Menu}
 \usage{
-menu_packages(q = NULL, rows = 100, sel = NULL)
+menu_packages(q = NULL, rows = 100, pack_sel = NULL, res_sel = NULL)
 }
 \arguments{
 \item{q}{query}
 
 \item{rows}{Number of rows to be returned in the menu, DEFAULT=100 (TODO: Possibily add a warning/message if rows is reached)}
 
-\item{sel}{Override Package selection}
+\item{pack_sel}{Override Package selection}
+
+\item{res_sel}{Override Resource selection}
 }
 \value{
 NOTHING [TBC]

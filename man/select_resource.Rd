@@ -4,10 +4,10 @@
 \alias{select_resource}
 \title{Handle the resource selection}
 \usage{
-select_resource(package, res_sel = "manual")
+select_resource(pack, res_sel = "manual")
 }
 \arguments{
-\item{package}{A Package data.frame}
+\item{pack}{A Package data.frame}
 
 \item{res_sel}{Override Resource selection}
 }

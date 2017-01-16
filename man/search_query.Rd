@@ -4,7 +4,7 @@
 \alias{search_query}
 \title{Search function}
 \usage{
-search_query(q = NULL, rows = 100)
+search_query(q, rows = 100)
 }
 \arguments{
 \item{q}{query}

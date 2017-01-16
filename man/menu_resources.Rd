@@ -4,10 +4,10 @@
 \alias{menu_resources}
 \title{Resources Menu}
 \usage{
-menu_resources(resources = NULL)
+menu_resources(pack = NULL)
 }
 \arguments{
-\item{resources}{A Package data.frame}
+\item{pack}{A Package data.frame}
 }
 \description{
 Interactive menu to download a Resource given a Package

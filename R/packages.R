@@ -1,4 +1,3 @@
-NULL
 #'
 #' Packages Menu
 #'
@@ -6,20 +5,24 @@ NULL
 #' 
 #' @param q query
 #' @param rows Number of rows to be returned in the menu, DEFAULT=100 (TODO: Possibily add a warning/message if rows is reached)
-#' @param sel Override Package selection
+#' @param pack_sel Override Package selection
+#' @param res_sel Override Resource selection
 #' 
-#' @export
-#' @return NOTHING [TBC]
+#' @return The selected Package
 #'
-menu_packages <- function(q = NULL, rows = 100, sel = NULL ) {
-    r <- search_query(q)
+menu_packages <- function(q = NULL,
+                          rows = 100,
+                          pack_sel = NULL,
+                          res_sel = NULL) {
+    r <- search_query(q, rows = rows)
     if (!is.null(r)) {
-        if (is.null(sel)) {
+        if (is.null(pack_sel)) {
             choices <- r$title
-            sel <- menu(choices, 
-                        title = 'The query returned these datasets, which one do you want to load?')
+            pack_sel <- menu(choices,
+                        title = "The query returned these datasets,
+                        which one do you want to load?")
         }
-        pack <- r[sel, ]
-        select_resource(pack)
+        pack <- r[pack_sel, ]
+        return(pack)
     }
 }

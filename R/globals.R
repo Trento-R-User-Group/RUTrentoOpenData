@@ -1,8 +1,3 @@
-# TODO: Add comment
-# 
-# Author: Trento R User Group
-NULL
-
 #' 
 #' Main function / entry point
 #' 
@@ -19,17 +14,23 @@ NULL
 #' 
 trentino <- function(q, rows = 100, pack_sel = NULL, res_sel = NULL) {
     #IMPORTANT
-    ckanr::ckanr_setup('dati.trentino.it')
-    
-    if (is.null(q) | q == '') {
-        message('Empty query, please ask something')
+    ckanr::ckanr_setup("dati.trentino.it")
+
+    if (is.null(q) | q == "") {
+        message("Empty query, please ask something")
         return(NULL)
     }
-    menu_packages(q, rows, pack_sel)
+    p <- menu_packages(q = q,
+                       rows = rows,
+                       pack_sel = pack_sel,
+                       res_sel = res_sel)
+    r <- select_resource(pack = p,
+                         res_sel = res_sel)
+    download_resource(r)
     # Should return a data.frame
 }
 
-NULL
+
 #' 
 #' Search function
 #' 
@@ -38,15 +39,11 @@ NULL
 #' @param q query
 #' @param rows Number of rows to be returned from the query, DEFAULT=100 (TODO: Possibily add a warning/message when max is reached)
 #' 
-#' 
-#' @export 
-#' 
 #' @return A data.frame as returned from ckanr::package_search
 #' 
-search_query <- function (q = NULL, rows = 100) {
+search_query <- function (q, rows = 100) {
     res <- ckanr::package_search(q = q,
-                                 as = 'table',
-                                 rows = rows)$results
-    return(res)
+                                 rows = rows,
+                                 as = "table")
+    res <- res$results
 }
-

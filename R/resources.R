@@ -1,68 +1,96 @@
-NULL
 #'
 #' Handle the resource selection
 #' 
-#' Search if the package have a default resource selection, if not ask and THEN download it
+#' Search if the package have a default resource selection, if not ask
 #'
-#' @param package A Package data.frame 
+#' @param pack A Package data.frame 
 #' @param res_sel Override Resource selection
 #' 
-#' @export
-#' @return NOTHING [TBC]
+#' @return The selected Resource
 #' 
-#' 
-select_resource <- function(package, res_sel = 'manual') {
-    if (res_sel == 'manual') {
-        res_sel = menu_resources(package$resources[[1]])
-    } else {
-        # TODO:
-        # default_resource()
-        # Se package appartiene a organizzazione conosciuta, possiamo impostare un res_sel di default (sovrascrivibile)
-        print('default_resource() [TBI]')
+select_resource <- function(pack, res_sel = "manual") {
+    if (pack$organization$title %in% c("ISPAT")) {
+
+        res_sel <- organization_default(pack)
+
+    } else if (!is.numeric(res_sel)) {
+
+        res_sel <- menu_resources(pack)
+
     }
 
-    resource <- package$resources[[1]][res_sel, ]
-    download_resource(resource)
-    # Should return a data.frame
+    # Force integer as I can't filter based on a list class object
+    index <- as.integer(res_sel$res_sel)
+
+    resource <- pack$resources[[1]][index, ]
+    res <- list(resource = resource,
+                sep = res_sel$sep)
+    return(res)
 }
 
-NULL
+
 #'
 #' Handle the Resource download# Should return a data.frame
 #' 
 #' Check the type of Resource and donwload&parse accordingly
 #' 
+#' @importFrom utils menu read.csv2
+#' 
 #' @param resource A Resource data.frame
 #' 
-#' @export 
-#' @return Should be a data.frame with actual data in it
+#' @return The actual data
 #' 
 download_resource <- function(resource) {
-    format <- resource$format
-    url <- resource$url
-    if (format == 'JSON') {
+    format <- resource$resource$format
+    url <- resource$resource$url
+    sep <- resource$sep
+    if (format == "JSON") {
         res <- jsonlite::fromJSON(url)[[1]]
-    } else if (format == 'CSV') {
-        res <- read.csv2(url)
+    } else if (format == "CSV") {
+        res <- read.csv2(url, sep = sep)
     } else {
-        message('I don\'t know how to download this format, pls contribute!')
+        message("I don\'t know how to download this format, pls contribute!")
         res <- NULL
     }
     return(res)
 }
 
-NULL
+
 #' 
 #' Resources Menu
 #'
 #' Interactive menu to download a Resource given a Package
 #' 
-#' @export
-#' @param resources A Package data.frame
+#' @param pack A Package data.frame
+#' 
+#' @return The selected Resource as chosen by the user
 #'
-menu_resources <- function(resources = NULL) {
-    choices <- resources$name
+menu_resources <- function(pack = NULL) {
+    resource <- pack$resources[[1]]
+    choices <- resource$name
     res_sel <- menu(choices,
-                    title = 'These are the available resources, which one do you want?')
-    return(res_sel)
+                    title = "These are the available resources,
+                    which one do you want?")
+    res <- list(res_sel = res_sel,
+                sep = ",")
+    return(res)
+}
+
+
+#' 
+#' Organization default resource
+#' 
+#' If we know the structure of a organization tipical package, we can attempt to download it automatically
+#' 
+#' @param pack Package df as returned by menu_packages
+#' 
+#' @return The automatically selected Resource
+#' 
+organization_default <- function(pack) {
+    if (pack$organization$title == "ISPAT") {
+        res <- list(res_sel = 2,
+                    sep = ";"
+        )
+    }
+    return(res)
 }
