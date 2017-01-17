@@ -48,6 +48,11 @@ download_resource <- function(resource) {
         res <- jsonlite::fromJSON(url)[[1]]
     } else if (format == "CSV") {
         res <- read.csv2(url, sep = sep)
+    }else if (format == "shp"){
+        temp <- tempfile()
+        download.file(url,temp)
+        file_ls <- unzip(temp, list = TRUE)
+        unlink(temp)
     } else {
         message("I don\'t know how to download this format, pls contribute!")
         res <- NULL
