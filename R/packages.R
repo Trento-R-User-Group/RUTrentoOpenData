@@ -39,7 +39,7 @@ menu_packages <- function(s,
 #'
 #' @return The automatically selected Resource
 #'
-pack_default <- function(pack, res) {
+default_package <- function(pack, res) {
     if (pack$organization$title == "ISPAT") {
         res <- list(res_sel = 2,
                     sep = ";")

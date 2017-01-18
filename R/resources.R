@@ -15,7 +15,7 @@ select_resource <- function(pack, res_sel) {
 
     # If pack enters one of the test inside
     # override default
-    res <- pack_default(pack = pack, res = res)
+    res <- default_package(pack = pack, res = res)
 
     # Else ask selection
     if (is.null(res$res_sel)) {
