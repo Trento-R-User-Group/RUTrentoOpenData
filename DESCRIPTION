@@ -11,7 +11,7 @@ License: file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports:
-    ckanr, jsonlite
+    ckanr, jsonlite, methods
 Suggests:
     testthat
 RoxygenNote: 5.0.1

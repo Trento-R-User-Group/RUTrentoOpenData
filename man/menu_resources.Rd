@@ -9,6 +9,9 @@ menu_resources(pack = NULL)
 \arguments{
 \item{pack}{A Package data.frame}
 }
+\value{
+The selected Resource as chosen by the user
+}
 \description{
 Interactive menu to download a Resource given a Package
 }

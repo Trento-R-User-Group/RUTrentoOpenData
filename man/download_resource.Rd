@@ -4,13 +4,15 @@
 \alias{download_resource}
 \title{Handle the Resource download# Should return a data.frame}
 \usage{
-download_resource(resource)
+download_resource(res, sep)
 }
 \arguments{
-\item{resource}{A Resource data.frame}
+\item{res}{A Resource data.frame}
+
+\item{sep}{a custom separator, if present}
 }
 \value{
-Should be a data.frame with actual data in it
+The actual data
 }
 \description{
 Check the type of Resource and donwload&parse accordingly

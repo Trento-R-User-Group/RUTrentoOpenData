@@ -4,7 +4,7 @@
 \alias{select_resource}
 \title{Handle the resource selection}
 \usage{
-select_resource(pack, res_sel = "manual")
+select_resource(pack, res_sel)
 }
 \arguments{
 \item{pack}{A Package data.frame}
@@ -12,9 +12,9 @@ select_resource(pack, res_sel = "manual")
 \item{res_sel}{Override Resource selection}
 }
 \value{
-NOTHING [TBC]
+The selected Resource
 }
 \description{
-Search if the package have a default resource selection, if not ask and THEN download it
+Search if the package have a default resource selection, if not ask
 }
 
