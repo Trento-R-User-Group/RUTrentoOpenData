@@ -49,10 +49,7 @@ download_resource <- function(resource) {
     } else if (format == "CSV") {
         res <- read.csv2(url, sep = sep)
     }else if (format == "shp"){
-        temp <- tempfile()
-        download.file(url,temp)
-        file_ls <- unzip(temp, list = TRUE)
-        unlink(temp)
+        res <- getSpatialDataFrame(url)
     } else {
         message("I don\'t know how to download this format, pls contribute!")
         res <- NULL
@@ -98,4 +95,26 @@ organization_default <- function(pack) {
         )
     }
     return(res)
+}
+
+
+#' 
+#' Extract shape file from remote zip.
+#' 
+#' 
+#' 
+#' @param url The url of the zip file
+#' 
+#' @return The automatically selected Resource
+#' 
+getSpatialDataFrame <- function(url) {
+    file_ls <- unzip(temp, list = TRUE)
+    #temp <- tempfile()
+    temp <- "/Users/danieleandreis/Documents/tempShp.zip"
+    download.file(url,temp)
+    file_ls <- unzip(temp, list = TRUE, exdir = "./tempShape")
+    #file_name <- file_ls$Name[which(grepl("(.shp)$",file_ls$Name))[1]]
+    shape <- rgdal::readOGR(dsn = temp)
+    #unlink(temp)
+    return(shape)
 }
