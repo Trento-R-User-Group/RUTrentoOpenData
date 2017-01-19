@@ -12,9 +12,9 @@ select_resource(pack, res_sel = "manual")
 \item{res_sel}{Override Resource selection}
 }
 \value{
-NOTHING [TBC]
+The selected Resource
 }
 \description{
-Search if the package have a default resource selection, if not ask and THEN download it
+Search if the package have a default resource selection, if not ask
 }
 

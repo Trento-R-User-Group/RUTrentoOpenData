@@ -10,7 +10,7 @@ download_resource(resource)
 \item{resource}{A Resource data.frame}
 }
 \value{
-Should be a data.frame with actual data in it
+The actual data
 }
 \description{
 Check the type of Resource and donwload&parse accordingly

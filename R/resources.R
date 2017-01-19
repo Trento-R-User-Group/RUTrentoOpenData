@@ -101,20 +101,35 @@ organization_default <- function(pack) {
 #' 
 #' Extract shape file from remote zip.
 #' 
+#' @import rgdal
+#' 
+#' @param url The url of the zip file
+#' 
+#' @return A SpatialDataFrame of selected resource.
+#' 
+getSpatialDataFrame <- function(url) {
+    #insert other statement? -----
+    shape <- readOGR(dsn = getZip(url))
+    return(shape)
+}
+
+
+#' 
+#' Download zip from remote and unzip
+#' 
+#' It create a temporary folder, download the selected resource
+#' as zip file into the folder, and then extract all file into this path.
 #' 
 #' 
 #' @param url The url of the zip file
 #' 
-#' @return The automatically selected Resource
+#' @return The path where files have been extracted
 #' 
-getSpatialDataFrame <- function(url) {
-    file_ls <- unzip(temp, list = TRUE)
-    #temp <- tempfile()
-    temp <- "/Users/danieleandreis/Documents/tempShp.zip"
-    download.file(url,temp)
-    file_ls <- unzip(temp, list = TRUE, exdir = "./tempShape")
-    #file_name <- file_ls$Name[which(grepl("(.shp)$",file_ls$Name))[1]]
-    shape <- rgdal::readOGR(dsn = temp)
-    #unlink(temp)
-    return(shape)
+getZip <- function(url) {
+    temp_folder <- tempdir()
+    temp_file <- tempfile(tmpdir = temp_folder, fileext = ".zip")
+    download.file(url,temp_file)
+    unzip(temp_file, exdir = temp_directory, overwrite = TRUE)
+    unlink(temp)
+    return(temp_folder)
 }

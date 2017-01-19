@@ -16,7 +16,7 @@ menu_packages(q = NULL, rows = 100, pack_sel = NULL, res_sel = NULL)
 \item{res_sel}{Override Resource selection}
 }
 \value{
-NOTHING [TBC]
+The selected Package
 }
 \description{
 Interactive menu to download a package
