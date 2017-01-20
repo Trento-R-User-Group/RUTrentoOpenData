@@ -2,6 +2,7 @@
 
 export(trentino)
 importFrom(methods,hasArg)
+importFrom(rgdal,readOGR)
 importFrom(utils,URLencode)
 importFrom(utils,menu)
 importFrom(utils,read.csv2)

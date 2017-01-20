@@ -53,6 +53,8 @@ download_resource <- function(res, sep) {
         dat <- jsonlite::fromJSON(url)
     } else if (format == "CSV") {
         dat <- read.csv2(url, sep = sep)
+    }else if (format == "shp"){
+        dat <- getSpatialDataFrame(url)
     } else {
         message(format)
         message("I don\'t know how to download this format, pls contribute!")
@@ -78,4 +80,41 @@ menu_resources <- function(pack = NULL) {
                     title = "These are the available resources,
                     which one do you want?")
     return(res_sel)
+}
+
+
+#' 
+#' Extract shape file from remote zip.
+#' 
+#' @importFrom rgdal readOGR
+#' 
+#' @param url The url of the zip file
+#' 
+#' @return A SpatialDataFrame of selected resource.
+#' 
+getSpatialDataFrame <- function(url) {
+    #insert other statement? -----
+    shape <- readOGR(dsn = getZip(url))
+    return(shape)
+}
+
+
+#' 
+#' Download zip from remote and unzip
+#' 
+#' It create a temporary folder, download the selected resource
+#' as zip file into the folder, and then extract all file into this path.
+#' 
+#' 
+#' @param url The url of the zip file
+#' 
+#' @return The path where files have been extracted
+#' 
+getZip <- function(url) {
+    temp_folder <- tempdir()
+    temp_file <- tempfile(tmpdir = temp_folder, fileext = ".zip")
+    download.file(url,temp_file)
+    unzip(temp_file, exdir = temp_directory, overwrite = TRUE)
+    unlink(temp)
+    return(temp_folder)
 }
