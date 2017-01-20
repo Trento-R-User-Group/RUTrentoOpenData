@@ -4,16 +4,18 @@
 \alias{trentino}
 \title{Main function / entry point}
 \usage{
-trentino(q, rows = 100, pack_sel = NULL, res_sel = NULL)
+trentino(q, pack_sel = NULL, res_sel = NULL, rows = 100, ...)
 }
 \arguments{
 \item{q}{A text input to search and download data}
 
-\item{rows}{Number of rows to be returned from the query, DEFAULT=100 (TODO: Possibily add a warning/message when max is reached)}
-
 \item{pack_sel}{Package selection. Custom parameter to override, force or set default package}
 
 \item{res_sel}{Resource selection. Custom parameter to override, force or set default resource}
+
+\item{rows}{Number of rows to be returned from the query}
+
+\item{...}{Additional parameters to further customize behaviour}
 }
 \value{
 A dataset if everything goes ok, otherwise...(TODO)

@@ -1,70 +1,76 @@
 #'
 #' Handle the resource selection
-#' 
+#'
 #' Search if the package have a default resource selection, if not ask
 #'
-#' @param pack A Package data.frame 
+#' @param pack A Package data.frame
 #' @param res_sel Override Resource selection
-#' 
+#'
 #' @return The selected Resource
-#' 
-select_resource <- function(pack, res_sel = "manual") {
-    if (pack$organization$title %in% c("ISPAT")) {
+#'
+select_resource <- function(pack, res_sel) {
+    # Default values
+    res <- list(res_sel = res_sel,
+                sep = ";")
 
-        res_sel <- organization_default(pack)
+    # If pack enters one of the test inside
+    # override default
+    res <- default_package(pack = pack, res = res)
 
-    } else if (!is.numeric(res_sel)) {
-
-        res_sel <- menu_resources(pack)
-
+    # Else ask selection
+    if (is.null(res$res_sel)) {
+        res$res_sel <- menu_resources(pack = pack)
     }
 
-    # Force integer as I can't filter based on a list class object
-    index <- as.integer(res_sel$res_sel)
-
-    resource <- pack$resources[[1]][index, ]
-    res <- list(resource = resource,
-                sep = res_sel$sep)
+    res$resource <- pack$resources[[1]][res$res_sel, ]
     return(res)
 }
 
 
 #'
 #' Handle the Resource download# Should return a data.frame
-#' 
+#'
 #' Check the type of Resource and donwload&parse accordingly
-#' 
-#' @importFrom utils menu read.csv2
-#' 
-#' @param resource A Resource data.frame
-#' 
+#'
+#' @importFrom utils menu read.csv2 URLencode
+#' @importFrom methods hasArg
+#'
+#' @param res A Resource data.frame
+#' @param sep a custom separator, if present
+#'
 #' @return The actual data
-#' 
-download_resource <- function(resource) {
-    format <- resource$resource$format
-    url <- resource$resource$url
-    sep <- resource$sep
-    if (format == "JSON") {
-        res <- jsonlite::fromJSON(url)[[1]]
-    } else if (format == "CSV") {
-        res <- read.csv2(url, sep = sep)
-    }else if (format == "shp"){
-        res <- getSpatialDataFrame(url)
-    } else {
-        message("I don\'t know how to download this format, pls contribute!")
-        res <- NULL
+#'
+download_resource <- function(res, sep) {
+    format <- res$resource$format
+    url <- URLencode(res$resource$url)
+    sep <- res$sep
+
+    if (hasArg(sep)) {
+        sep <- sep
     }
-    return(res)
+
+    if (format == "JSON") {
+        dat <- jsonlite::fromJSON(url)
+    } else if (format == "CSV") {
+        dat <- read.csv2(url, sep = sep)
+    }else if (format == "shp"){
+        dat <- getSpatialDataFrame(url)
+    } else {
+        message(format)
+        message("I don\'t know how to download this format, pls contribute!")
+        dat <- NULL
+    }
+    return(dat)
 }
 
 
-#' 
+#'
 #' Resources Menu
 #'
 #' Interactive menu to download a Resource given a Package
-#' 
+#'
 #' @param pack A Package data.frame
-#' 
+#'
 #' @return The selected Resource as chosen by the user
 #'
 menu_resources <- function(pack = NULL) {
@@ -73,35 +79,14 @@ menu_resources <- function(pack = NULL) {
     res_sel <- menu(choices,
                     title = "These are the available resources,
                     which one do you want?")
-    res <- list(res_sel = res_sel,
-                sep = ",")
-    return(res)
-}
-
-
-#' 
-#' Organization default resource
-#' 
-#' If we know the structure of a organization tipical package, we can attempt to download it automatically
-#' 
-#' @param pack Package df as returned by menu_packages
-#' 
-#' @return The automatically selected Resource
-#' 
-organization_default <- function(pack) {
-    if (pack$organization$title == "ISPAT") {
-        res <- list(res_sel = 2,
-                    sep = ";"
-        )
-    }
-    return(res)
+    return(res_sel)
 }
 
 
 #' 
 #' Extract shape file from remote zip.
 #' 
-#' @import rgdal
+#' @importFrom rgdal readOGR
 #' 
 #' @param url The url of the zip file
 #' 
