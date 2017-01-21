@@ -114,7 +114,7 @@ getZip <- function(url) {
     temp_folder <- tempdir()
     temp_file <- tempfile(tmpdir = temp_folder, fileext = ".zip")
     download.file(url,temp_file)
-    unzip(temp_file, exdir = temp_directory, overwrite = TRUE)
+    unzip(temp_file, exdir = temp_folder, overwrite = TRUE)
     unlink(temp)
     return(temp_folder)
 }
