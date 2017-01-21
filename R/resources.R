@@ -86,15 +86,23 @@ menu_resources <- function(pack = NULL) {
 #' 
 #' Extract shape file from remote zip.
 #' 
-#' @import rgdal
+#' @importFrom rgdal readOGR
 #' 
 #' @param url The url of the zip file
 #' 
 #' @return A SpatialDataFrame of selected resource.
 #' 
 getSpatialDataFrame <- function(url) {
-    #insert other statement? -----
-    shape <- readOGR(dsn = getZip(url))
+    #this can be an utility function (search if folder contains a file)-------
+    folder <- getZip(url)
+    files_path <- list.files(path = folder, recursive = TRUE, pattern = "(.shp)$", full.names = TRUE)
+    if (length(files_path) > 0){
+        print(files_path[1])
+        shape <- readOGR(dsn = files_path[1])
+    }else{
+        shape <- NULL
+    }
+    unlink(folder, recursive = FALSE)
     return(shape)
 }
 
