@@ -4,10 +4,10 @@
 \alias{search_query}
 \title{Search function}
 \usage{
-search_query(q, rows = 100)
+search_query(query, rows = 100)
 }
 \arguments{
-\item{q}{query}
+\item{query}{query to be run against the CKAN portal}
 
 \item{rows}{Number of rows to be returned from the query, DEFAULT=100 (TODO: Possibily add a warning/message when max is reached)}
 }

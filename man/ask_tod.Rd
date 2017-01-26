@@ -2,12 +2,12 @@
 % Please edit documentation in R/globals.R
 \name{ask_tod}
 \alias{ask_tod}
-\title{Main function / entry point}
+\title{Ask data to Trentino Open Data!}
 \usage{
-ask_tod(q, pack_sel = NULL, res_sel = NULL, rows = 100, ...)
+ask_tod(query, pack_sel = NULL, res_sel = NULL, rows = 100, ...)
 }
 \arguments{
-\item{q}{A text input to search and download data}
+\item{query}{A text input to search and download data}
 
 \item{pack_sel}{Package selection. Custom parameter to override, force or set default package}
 
@@ -18,9 +18,18 @@ ask_tod(q, pack_sel = NULL, res_sel = NULL, rows = 100, ...)
 \item{...}{Additional parameters to further customize behaviour}
 }
 \value{
-A dataset if everything goes ok, otherwise...(TODO)
+A dataset if everything goes ok
 }
 \description{
-This is the main function and then only that should be invoked, at least for now
+dati.trentino.it is one of the most complete open data portal in europe,
+and now you can easily discover and use
+}
+\examples{
+\dontrun{
+dat <- ask_tod('nati')
+dat <- ask_tod('nati', pack_sel = 1)
+dat <- ask_tod('dipendenti', pack_sel = 24, res_sel = 2)
+}
+
 }
 

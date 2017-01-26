@@ -9,7 +9,7 @@ menu_packages(s, rows = 100, pack_sel = NULL)
 \arguments{
 \item{s}{query}
 
-\item{rows}{Number of rows to be returned in the menu, DEFAULT=100 (TODO: Possibily add a warning/message if rows is reached)}
+\item{rows}{Number of rows to be returned in the menu}
 
 \item{pack_sel}{Override Package selection}
 }
