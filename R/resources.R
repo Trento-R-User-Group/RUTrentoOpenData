@@ -96,6 +96,16 @@ menu_resources <- function(pack = NULL) {
 #' 
 getSpatialDataFrame <- function(url) {
     shape <- readOGR(dsn = getZip(url))
+    # This can be an utility function (search if folder contains a file)-------
+    folder <- getZip(url)
+    files_path <- list.files(path = folder, recursive = TRUE, pattern = "(.shp)$", full.names = TRUE)
+    if (length(files_path) > 0){
+        print(files_path[1])
+        shape <- readOGR(dsn = files_path[1])
+    }else{
+        shape <- NULL
+    }
+    unlink(folder, recursive = FALSE)
     return(shape)
 }
 
@@ -115,7 +125,7 @@ getZip <- function(url) {
     temp_folder <- tempdir()
     temp_file <- tempfile(tmpdir = temp_folder, fileext = ".zip")
     download.file(url,temp_file)
-    unzip(temp_file, exdir = temp_directory, overwrite = TRUE)
+    unzip(temp_file, exdir = temp_folder, overwrite = TRUE)
     unlink(temp)
     return(temp_folder)
 }
