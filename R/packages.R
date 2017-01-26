@@ -13,6 +13,11 @@ menu_packages <- function(s,
                           rows = 100,
                           pack_sel = NULL) {
     if (!is.null(s)) {
+        # If only one package, pick that
+        if (nrow(s) ==1) {
+            pack_sel <- 1
+        }
+        # Else ask for selection
         if (is.null(pack_sel)) {
             choices <- s$title
             pack_sel <- menu(choices,
@@ -24,7 +29,7 @@ menu_packages <- function(s,
                     use the rows parameter to increase the limit"
                 )
             }
-            }
+        }
         pack <- s[pack_sel,]
         return(pack)
         }

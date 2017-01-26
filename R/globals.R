@@ -13,7 +13,7 @@
 #'
 #' @return A dataset if everything goes ok, otherwise...(TODO)
 #'
-trentino <- function(q,
+ask_tod <- function(q,
              pack_sel = NULL,
              res_sel = NULL,
              rows = 100,

@@ -16,12 +16,14 @@ select_resource <- function(pack, res_sel) {
     # If pack enters one of the test inside
     # override default
     res <- default_package(pack = pack, res = res)
-
+    # If only one resource, pick that
+    if (nrows(pack) == 1) {
+        res$res_sel <- 1
+    }
     # Else ask selection
     if (is.null(res$res_sel)) {
         res$res_sel <- menu_resources(pack = pack)
     }
-
     res$resource <- pack$resources[[1]][res$res_sel, ]
     return(res)
 }
@@ -93,7 +95,6 @@ menu_resources <- function(pack = NULL) {
 #' @return A SpatialDataFrame of selected resource.
 #' 
 getSpatialDataFrame <- function(url) {
-    #insert other statement? -----
     shape <- readOGR(dsn = getZip(url))
     return(shape)
 }
