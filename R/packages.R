@@ -48,7 +48,7 @@ menu_packages <- function(s,
 #' @return The automatically selected Resource
 #'
 default_package <- function(pack, res) {
-    if (pack$organization$title == "ISPAT") {
+    if (pack$organization$title == " ISPAT - Indici Subprovinciali") {
         res <- list(res_sel = 2,
                     sep = ";",
                     dowloader = function(res) {
