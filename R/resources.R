@@ -47,7 +47,7 @@ download_resource <- function(res, ...) {
     url <- URLencode(res$resource$url)
     sep <- res$sep
     if (hasArg(sep)) {
-        sep <- list(...)$path
+        sep <- list(...)$sep
     }
     if (!is.null(res$downloader)) {
         res$dowloader(res)
