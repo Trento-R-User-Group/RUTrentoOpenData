@@ -42,12 +42,12 @@ select_resource <- function(pack, res_sel) {
 #'
 #' @return The actual data
 #'
-download_resource <- function(res, sep) {
+download_resource <- function(res, ...) {
     format <- res$resource$format
     url <- URLencode(res$resource$url)
     sep <- res$sep
     if (hasArg(sep)) {
-        sep <- sep
+        sep <- list(...)$path
     }
     if (!is.null(res$downloader)) {
         res$dowloader(res)
@@ -56,8 +56,14 @@ download_resource <- function(res, sep) {
         dat <- jsonlite::fromJSON(url)
     } else if (format == "CSV") {
         dat <- read.csv2(url, sep = sep)
-    }else if (format == "shp"){
-        dat <- get_spatial_data_frame(url)
+    }else if (format == "shp" || format == "zip (shp)"){
+        if (hasArg(path)) {
+            downloads_folder <- list(...)$path
+            dat <- get_spatial_data_frame(url, downloads_folder)
+            
+        }else{
+            dat <- get_spatial_data_frame(url)
+        }
     } else {
         message(format)
         message("I don\'t know how to download this format, pls contribute!")
@@ -83,53 +89,4 @@ menu_resources <- function(pack = NULL) {
                     title = "These are the available resources,
                     which one do you want?")
     return(res_sel)
-}
-
-
-#' 
-#' Extract shape file from remote zip.
-#' 
-#' @importFrom rgdal readOGR
-#' 
-#' @param url The url of the zip file
-#' 
-#' @return A SpatialDataFrame of selected resource.
-#' 
-get_spatial_data_frame <- function(url) {
-    shape <- readOGR(dsn = get_zip(url))
-    # This can be an utility function (search if folder contains a file)-------
-    folder <- get_zip(url)
-    files_path <- list.files(path = folder,
-                             recursive = TRUE,
-                             pattern = "(.shp)$",
-                             full.names = TRUE)
-    if (length(files_path) > 0){
-        shape <- readOGR(dsn = files_path[1])
-    } else {
-        shape <- NULL
-    }
-    unlink(folder, recursive = FALSE)
-    return(shape)
-}
-
-
-#' 
-#' Download zip from remote and unzip
-#' 
-#' It create a temporary folder, download the selected resource
-#' as zip file into the folder, and then extract all file into this path.
-#' 
-#' @importFrom utils download.file unzip
-#' 
-#' @param url The url of the zip file
-#' 
-#' @return The path where files have been extracted
-#' 
-get_zip <- function(url) {
-    temp_folder <- tempdir()
-    temp_file <- tempfile(tmpdir = temp_folder, fileext = ".zip")
-    download.file(url, temp_file)
-    unzip(temp_file, exdir = temp_folder, overwrite = TRUE)
-    unlink(temp_file)
-    return(temp_folder)
 }

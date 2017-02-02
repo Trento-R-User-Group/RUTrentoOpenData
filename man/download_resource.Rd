@@ -4,7 +4,7 @@
 \alias{download_resource}
 \title{Handle the Resource download# Should return a data.frame}
 \usage{
-download_resource(res, sep)
+download_resource(res, ...)
 }
 \arguments{
 \item{res}{A Resource data.frame}
