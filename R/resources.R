@@ -50,9 +50,8 @@ download_resource <- function(res, ...) {
         sep <- list(...)$sep
     }
     if (!is.null(res$downloader)) {
-        res$dowloader(res)
-    }
-    if (format == "JSON") {
+        dat <- res$downloader(res)
+    } else if (format == "JSON") {
         dat <- jsonlite::fromJSON(url)
     } else if (format == "CSV") {
         dat <- read.csv2(url, sep = sep)

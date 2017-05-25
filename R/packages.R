@@ -51,9 +51,14 @@ default_package <- function(pack, res) {
     if (pack$organization$title == " ISPAT - Indici Subprovinciali") {
         res <- list(res_sel = 2,
                     sep = ";",
-                    dowloader = function(res) {
-                        dat <- read.csv2(URLencode(res$url), sep = ";")
-                        return(dat[[1]])
+                    downloader = function(res) {
+                        dat <- read.csv2(URLencode(res$resource$url),
+                                         colClasses = c('integer',
+                                                        'integer',
+                                                        'numeric'),
+                                         dec = '.')
+                        
+                        return(dat)
                     })
     }
     return(res)
